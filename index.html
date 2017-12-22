@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Truyen Kieu game</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="board">
+      <div class="start-scene scene">
+        <div class="container">
+          <h3>Truyện Kiều - Nguyễn Du</h3>
+          <div class="btn-start" onclick="app.changeScene('play');">
+            BẮT ĐẦU TRIỂN THÔI
+          </div>
+          <div class="">
+            <p>Vui lòng để màn hình ngang để chơi tốt hơn</p>
+            <p>From tranthehuy.2nd@gmail.com</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="play-scene scene">
+        <div class="container">
+
+        </div>
+      </div>
+
+      <div class="end-scene scene">
+        <div class="container">
+          <h1>Trò chơi kết thúc</h1>
+          <div class="r1">
+
+          </div>
+          <div class="r2">
+
+          </div>
+          <h3>Bạn đã đạt số điểm là</h3>
+          <h1 id="h3Score" class="h3Score">0</h1>
+          <div class="btn-new" onclick="location.reload();">
+            Chơi lại
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="./js/script.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script src="https://huytranbku.github.io/counting.js"></script>
+  </body>
+</html>
