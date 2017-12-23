@@ -66,8 +66,11 @@ body{
   flex-direction: column;
   justify-content: space-around;
 }
-
-.s{
+.readmore{
+  text-align: center;
+  line-height: 50px;
+}
+.s, .readmore{
   padding: 10px;
   font-size: 16px;
   font-family: sans-serif;
@@ -78,13 +81,9 @@ body{
   text-shadow: 2px 2px #000;
   cursor: pointer;
 }
-.s1{
-
+.readmore{
+  font-family: serif;
 }
-.s2{
-
-}
-
 .s1-0{
   background-color: #00BCD4;
 }
@@ -137,9 +136,34 @@ body{
 
 .status{
   color: white;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
+  font-family: sans-serif;
+
 }
-.ques{
-  opacity: 0.5;
+
+.ques .added{
+  opacity: 0.2;
+}
+
+.right-scene .container{
+  background-color: #2ecc71;
+  flex-direction: column;
+}
+.wrong-scene .container{
+  background-color: #e74c3c;
+  flex-direction: column;
+}
+
+.right-scene h1, .wrong-scene h1{
+  color: white;
+}
+
+.r1, .r2{
+  height: 50px;
+}
+
+.ques, .ans, .r1, .r2{
+  text-align: center;
+  line-height: 50px;
 }

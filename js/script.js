@@ -2,7 +2,7 @@ var debug = false;
 var mode = "start";
 var poemArray = false;
 var score = 0;
-var life = 1;
+var life = 5;
 var ans1 = [];
 var ans2 = [];
 var changeQuestion = false;
@@ -42,6 +42,11 @@ var util = {
   }
 }
 
+// for (var i = 0; i < 100; i++) {
+//   console.log(util.randomBetween(0,999));
+// }
+
+
 var sceneAction = {
   start: function(){
 
@@ -51,14 +56,20 @@ var sceneAction = {
   },
   end: function(){
     $(".h3Score").html(score);
-  }
+  },
+  right: function(){
+
+  },
+  wrong: function(){
+
+  },
 }
 
 function showAQuestion(){
   var generatedResult = getACoupleSentences();
   if (!generatedResult) return;
-  var sent1 = generatedResult[0].split(" ");
-  var sent2 = generatedResult[1].split(" ");
+  var sent1 = generatedResult[2].split(" ");
+  var sent2 = generatedResult[3].split(" ");
   if (sent1.length!= 6 || sent2.length!=8){
     console.log("Error:");
     console.log(sent1);
@@ -98,20 +109,24 @@ function showAQuestion(){
     htmlQuesSent2.push(htmlSent2[orders2[i]]);
   }
   var content = ("<div class='status'>Số mạng: #life &nbsp;&nbsp; Số điểm: #score</div>").replace("#life", life).replace("#score", score);
-  content += "<div class='ques'>" + htmlQuesSent1.join(" ") + "</div><div class='ans1'>"
-  + htmlAns1.join(" ") + "</div><div class='ques'>"
-  + htmlQuesSent2.join(" ") + "</div><div class='ans2'>"
-  + htmlAns2.join(" ") + "</div><div>"
+  content += ""
+  + "<div class='readmore'>" + generatedResult[0] + "<br>" + generatedResult[1] + "</div>"
+  + "<div class='ques'>" + htmlQuesSent1.join(" ") + "</div>"
+  + "<div class='ques'>" + htmlQuesSent2.join(" ") + "</div>"
+  + "<div class='ans ans1'>" + htmlAns1.join(" ") + "</div>"
+  + "<div class='ans ans2'>" + htmlAns2.join(" ") + "</div>"
   + "</div>";
-  content += "<div class='btn-submit'>Nộp bài</div>"
+  // content += "<div class='btn-submit'>Nộp bài</div>"
   $(".play-scene .container").html(content);
   $(".r1").html(htmlSent1.join(" "));
   $(".r2").html(htmlSent2.join(" "));
   ans1 = [];
   ans2 = [];
-
-  $(".s1").click(function(){
+  var countingAddedWords = 0;
+  $(".ques .s1").click(function(){
+    if ($(this).hasClass("added")) return;
     var pos = $(this).data("position");
+    $(this).addClass("added");
     ans1.push(pos);
     htmlAns1 = [" "];
     for (var i = 0; i < sent1.length; i++) {
@@ -121,11 +136,15 @@ function showAQuestion(){
         htmlAns1.push(util.createSpanFromText("???","s sunk","",""));
       }
     }
+    countingAddedWords += 1;
+    if (countingAddedWords == 14) submitAns();
     $(".ans1").html(htmlAns1.join(" "));
   });
 
-  $(".s2").click(function(){
+  $(".ques .s2").click(function(){
+    if ($(this).hasClass("added")) return;
     var pos = $(this).data("position");
+    $(this).addClass("added");
     ans2.push(pos);
     htmlAns2 = [" "];
     for (var i = 0; i < sent2.length; i++) {
@@ -135,21 +154,23 @@ function showAQuestion(){
         htmlAns2.push(util.createSpanFromText("???","s sunk","",""));
       }
     }
+    countingAddedWords += 1;
+    if (countingAddedWords == 14) submitAns();
     $(".ans2").html(htmlAns2.join(" "));
   });
 
-  $(".btn-submit").click(function(){
+  function submitAns(){
     if (util.compareArray(ans1,[0,1,2,3,4,5]) && util.compareArray(ans2,[0,1,2,3,4,5,6,7])){
       app.increaseScore();
     } else {
       app.decreaseLife();
     }
-  });
-
+  }
+  // 
   // if (!changeQuestion){
   //   changeQuestion = setTimeout(function(){
-  //     showAQuestion();
-  //   }, 40000);
+  //     submitAns();
+  //   }, 30000);
   // } else {
   //   clearTimeout(changeQuestion);
   //   changeQuestion = false;
@@ -160,9 +181,8 @@ function showAQuestion(){
 function getACoupleSentences(){
   var len = poemArray.length;
   var halfLen = Math.round(len / 2);
-  var rnd = util.randomBetween(0, halfLen - 1);
-  console.log(rnd);
-  return [poemArray[rnd*2], poemArray[rnd*2+1]]
+  var rnd = util.randomBetween(0, halfLen - 1 - 1);
+  return [poemArray[rnd*2], poemArray[rnd*2+1], poemArray[rnd*2+2], poemArray[rnd*2+3]]
 }
 
 var app = {
@@ -194,12 +214,20 @@ var app = {
   },
   increaseScore(){
     score = score + 1;
-    showAQuestion();
+    this.changeScene("right");
+    setTimeout(function(){
+      app.changeScene("play");
+    }, 5000);
   },
   decreaseLife(){
     life = life - 1;
     if (life == 0){
       this.changeScene("end");
+    } else {
+      this.changeScene("wrong");
+      setTimeout(function(){
+        app.changeScene("play");
+      }, 5000);
     }
   }
 }
