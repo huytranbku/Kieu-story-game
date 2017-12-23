@@ -68,15 +68,15 @@ body{
 }
 .readmore{
   text-align: center;
-  line-height: 50px;
+  line-height: 20px;
 }
 .s, .readmore{
-  padding: 10px;
+  padding: 5px;
   font-size: 16px;
   font-family: sans-serif;
   font-weight: bold;
   color: white;
-  margin: 3px;
+  margin: 2px;
 
   text-shadow: 2px 2px #000;
   cursor: pointer;
@@ -155,7 +155,7 @@ body{
   flex-direction: column;
 }
 
-.right-scene h1, .wrong-scene h1{
+.right-scene h3, .wrong-scene h3{
   color: white;
 }
 
