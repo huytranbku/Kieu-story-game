@@ -166,7 +166,7 @@ function showAQuestion(){
       } else {
         app.decreaseLife();
       }
-    }, 3000);
+    }, 1000);
   }
   //
   // if (!changeQuestion){
