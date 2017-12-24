@@ -160,13 +160,15 @@ function showAQuestion(){
   });
 
   function submitAns(){
-    if (util.compareArray(ans1,[0,1,2,3,4,5]) && util.compareArray(ans2,[0,1,2,3,4,5,6,7])){
-      app.increaseScore();
-    } else {
-      app.decreaseLife();
-    }
+    setTimeout(function(){
+      if (util.compareArray(ans1,[0,1,2,3,4,5]) && util.compareArray(ans2,[0,1,2,3,4,5,6,7])){
+        app.increaseScore();
+      } else {
+        app.decreaseLife();
+      }
+    }, 3000);
   }
-  // 
+  //
   // if (!changeQuestion){
   //   changeQuestion = setTimeout(function(){
   //     submitAns();
